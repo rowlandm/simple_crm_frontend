@@ -1,3 +1,22 @@
+# simple_crm_frontend
+
+npx nuxi@latest init simple_crm_frontend
+
+Choose yarn
+
+Start development server with yarn run dev
+
+Command 'yarn' not found, but can be installed with:
+sudo apt install cmdtest
+
+npm install
+
+This fixed the problem
+
+
+
+
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

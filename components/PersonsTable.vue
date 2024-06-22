@@ -9,6 +9,7 @@
           <th>Job Title</th>
           <th>ID</th>
           <th>Last Note Date</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,7 @@
           <td>{{ person.job_title }}</td>
           <td>{{ person.id }}</td>
           <td>{{ person.last_note_date }}</td>
+    	  <td><nuxt-link :to="'persons/view/'+person.id">Go to Person Page</nuxt-link></td>
         </tr>
       </tbody>
     </table>

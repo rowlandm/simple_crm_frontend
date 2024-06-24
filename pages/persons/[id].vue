@@ -3,7 +3,7 @@
     <h1>Person Details</h1>
     <p>Person ID: {{ id }}</p>
 
-	<div v-if="error">
+    <div v-if="error">
       <p>Error loading data: {{ error.message }}</p>
     </div>
     <div v-else>
@@ -41,26 +41,98 @@
           <td>{{ note.id }}</td>
         </tr>
       </table>
+
+      <!-- Note Form -->
+      <h2>Add a Note</h2>
+      <form @submit.prevent="submitForm">
+        <div>
+          <label for="note">Note</label>
+          <textarea v-model="noteForm.note" id="note" required></textarea>
+        </div>
+        <div>
+          <label for="date">Date</label>
+          <input type="date" v-model="noteForm.date" id="date" required />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
 
-
-    <p><nuxt-link to="/">Go to Home Page</nuxt-link> </p>
+    <p><nuxt-link to="/">Go to Home Page</nuxt-link></p>
   </div>
 </template>
 
 <script setup>
-    const { id } = useRoute().params
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useAsyncData } from 'nuxt/app';
 
-	import { useAsyncData } from 'nuxt/app';
+const { id } = useRoute().params;
 
-	const { data,error } = await useAsyncData('person', () => $fetch('http://127.0.0.1:8000/persons/'+id));
+const { data, error } = await useAsyncData('person', () =>
+  $fetch('http://127.0.0.1:8000/persons/' + id)
+);
 
-	if (error.value) {
-	  console.error('Error fetching person notes data:', error.value);
-	}
+if (error.value) {
+  console.error('Error fetching person notes data:', error.value);
+}
+
+const noteForm = ref({
+  person_id: id,
+  note: '',
+  date: ''
+});
+
+const submitForm = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/notes/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(noteForm.value)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Response:', data);
+    alert('Note submitted successfully!');
+
+    // Optionally, refresh the notes data here if needed
+    noteForm.value.note = '';
+    noteForm.value.date = '';
+  } catch (error) {
+    console.error('Error submitting note:', error);
+    alert('There was an error submitting the note.');
+  }
+};
 </script>
 
 <style scoped>
-/* Add your styles here */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+div {
+  margin-bottom: 1em;
+}
+label {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+input,
+textarea {
+  padding: 0.5em;
+  font-size: 1em;
+}
+button {
+  padding: 0.5em;
+  font-size: 1em;
+  cursor: pointer;
+}
 </style>
 

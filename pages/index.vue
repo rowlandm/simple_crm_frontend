@@ -6,6 +6,9 @@
     <p>
     <nuxt-link to="/about">Go to About Page</nuxt-link>
     </p>
+    <p>
+    <nuxt-link to="/personForm">Go to Add a Person</nuxt-link>
+    </p>
   </div>
 </template>
 

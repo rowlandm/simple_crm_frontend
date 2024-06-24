@@ -44,8 +44,6 @@
     </div>
 
 
-
-
     <p><nuxt-link to="/">Go to Home Page</nuxt-link> </p>
   </div>
 </template>

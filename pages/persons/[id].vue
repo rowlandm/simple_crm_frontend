@@ -26,6 +26,10 @@
         </tr>
       </table>
 
+
+
+      <input v-model="searchQuery" placeholder="Search" />
+
       <h2>Notes</h2>
       <table>
         <tr>
@@ -34,7 +38,7 @@
           <th>Date</th>
           <th>ID</th>
         </tr>
-        <tr v-for="note in data.notes" :key="note.id">
+        <tr v-for="note in filteredNotes" :key="note.id">
           <td>{{ note.person_id }}</td>
           <td>{{ note.note }}</td>
           <td>{{ note.date }}</td>
@@ -75,6 +79,20 @@ const { data, error } = await useAsyncData('person', () =>
 if (error.value) {
   console.error('Error fetching person notes data:', error.value);
 }
+// State variables
+const searchQuery = ref('');
+
+const filteredNotes = computed(() => {
+  
+  if (!data.value || !data.value.notes) return [];
+
+  let result = data.value.notes.filter(note => {
+    return Object.values(note).some(value => String(value).toLowerCase().includes(searchQuery.value.toLowerCase()));
+  });
+
+  return result;
+});
+
 
 const noteForm = ref({
   person_id: id,

@@ -53,7 +53,7 @@ export default {
 
         const data = await response.json();
         console.log('Response:', data);
-        alert('Form submitted successfully!');
+        this.$router.push('/');
       } catch (error) {
         console.error('Error submitting form:', error);
         alert('There was an error submitting the form.');

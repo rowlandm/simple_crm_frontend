@@ -40,8 +40,8 @@ if (error.value) {
 
 // State variables
 const searchQuery = ref('');
-const sortKey = ref('');
-const sortAsc = ref(true);
+const sortKey = ref('last_note_date');  // Default to sorting by last_note_date
+const sortAsc = ref(true);  // Ascending order by default
 
 // Computed property for filtered and sorted persons
 const filteredAndSortedPersons = computed(() => {
@@ -59,6 +59,11 @@ const filteredAndSortedPersons = computed(() => {
       if (sortKey.value === 'id') {
         compareA = Number(compareA);
         compareB = Number(compareB);
+      }
+
+      if (sortKey.value === 'last_note_date') {
+        compareA = new Date(compareA);
+        compareB = new Date(compareB);
       }
 
       if (sortAsc.value) {

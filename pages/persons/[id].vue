@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1><nuxt-link to="/">Home</nuxt-link></h1>
     <h1>Person Details</h1>
     <p>Person ID: {{ id }}</p>
 

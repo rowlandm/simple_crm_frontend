@@ -1,2 +1,5 @@
 package-lock.json
 *.lock
+.nuxt
+.output
+node_modules/

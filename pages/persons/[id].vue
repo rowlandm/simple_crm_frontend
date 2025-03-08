@@ -52,7 +52,7 @@
       <form @submit.prevent="submitForm">
         <div>
           <label for="note">Note</label>
-          <textarea v-model="noteForm.note" id="note" required></textarea>
+          <textarea rows="16" cols="70" v-model="noteForm.note" id="note" required></textarea>
         </div>
         <div>
           <label for="date">Date</label>
@@ -117,8 +117,8 @@ const submitForm = async () => {
 
     const data = await response.json();
     console.log('Response:', data);
-    alert('Note submitted successfully!');
 
+    refreshNuxtData('person'); 
     // Optionally, refresh the notes data here if needed
     noteForm.value.note = '';
     noteForm.value.date = '';
